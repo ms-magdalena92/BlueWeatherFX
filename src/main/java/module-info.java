@@ -4,4 +4,5 @@ module blueWeather {
 
     opens blueWeather to javafx.fxml;
     exports blueWeather;
+    opens blueWeather.controller to javafx.fxml;
 }

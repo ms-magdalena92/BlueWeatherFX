@@ -5,12 +5,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-public class MainWindowController {
+public class MainWindowController extends BaseController {
+
+    private static final String MAIN_VIEW_FILE_NAME = "main.fxml";
+
     @FXML
     private AnchorPane currentLocationWeather;
 
     @FXML
-    private Label location;
+    private Label currentLocation;
 
     @FXML
     private ImageView weatherIcon;
@@ -34,5 +37,9 @@ public class MainWindowController {
     private Label wind;
 
     @FXML
-    private AnchorPane selectedLocationWeather;
+    private AnchorPane targetLocationWeather;
+
+    public MainWindowController() {
+        super(MAIN_VIEW_FILE_NAME);
+    }
 }

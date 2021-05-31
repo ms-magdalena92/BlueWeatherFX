@@ -23,7 +23,7 @@
                   </Label>
                   <AnchorPane layoutX="5.0" layoutY="39.0" prefHeight="161.0" prefWidth="486.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                      <children>
-                        <Label fx:id="location" layoutX="12.0" layoutY="14.0" text="City, Country">
+                        <Label fx:id="currentLocation" layoutX="12.0" layoutY="14.0" text="City, Country">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -66,11 +66,6 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label text="Pressure" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
                               <Label fx:id="feelsLikeTemperature" text="Feels Like" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="14.0" />
@@ -91,6 +86,11 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
+                              <Label text="Pressure" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </GridPane>
                      </children>
@@ -106,7 +106,7 @@
                      </font>
                   </Label>
                </children></AnchorPane>
-          <AnchorPane fx:id="selectedLocationWeather" minHeight="0.0" minWidth="0.0" prefHeight="518.0" prefWidth="732.0" />
+          <AnchorPane fx:id="targetLocationWeather" minHeight="0.0" minWidth="0.0" prefHeight="518.0" prefWidth="732.0" />
         </items>
       </SplitPane>
       <Label layoutX="429.0" layoutY="27.0" text="BlueWeather" AnchorPane.topAnchor="27.0">
