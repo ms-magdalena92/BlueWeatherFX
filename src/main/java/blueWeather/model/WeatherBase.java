@@ -1,7 +1,8 @@
 package blueWeather.model;
 
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class WeatherBase {
 
@@ -21,7 +22,8 @@ public class WeatherBase {
     }
 
     public String getDate() {
-        return DateTimeFormatter.ofPattern("E, MMM dd").toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E, MMM dd", new Locale("en", "EN"));
+        return dateFormat.format(date);
     }
 
     public String getPressure() {
