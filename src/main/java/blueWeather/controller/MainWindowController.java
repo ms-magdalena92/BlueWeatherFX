@@ -35,9 +35,6 @@ public class MainWindowController extends BaseController implements Initializabl
     private Label weatherDescription;
 
     @FXML
-    private Label feelsLikeTemperature;
-
-    @FXML
     private Label humidity;
 
     @FXML
@@ -45,6 +42,9 @@ public class MainWindowController extends BaseController implements Initializabl
 
     @FXML
     private Label wind;
+
+    @FXML
+    private Label date;
 
     @FXML
     private AnchorPane targetLocationWeather;
@@ -82,5 +82,6 @@ public class MainWindowController extends BaseController implements Initializabl
         humidity.setText(currentWeather.getHumidity());
         pressure.setText(currentWeather.getPressure());
         wind.setText(currentWeather.getWindSpeed());
+        date.setText(currentWeather.getDate());
     }
 }
