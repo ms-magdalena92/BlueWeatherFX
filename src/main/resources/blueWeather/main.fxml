@@ -28,7 +28,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="weatherIcon" fitHeight="59.0" fitWidth="59.0" layoutX="14.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="weatherIcon" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="currentTemperature" layoutX="89.0" layoutY="52.0" text="Temp">
                            <font>
                               <Font size="36.0" />
