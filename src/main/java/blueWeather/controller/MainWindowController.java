@@ -1,13 +1,16 @@
 package blueWeather.controller;
 
 import blueWeather.model.CurrentWeatherConditions;
+import blueWeather.model.DailyWeatherConditions;
+import blueWeather.model.WeatherForecast;
 import blueWeather.service.WeatherForecastFetcher;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import net.aksingh.owmjapis.api.APIException;
 
 import java.net.URL;
@@ -17,10 +20,11 @@ public class MainWindowController extends BaseController implements Initializabl
 
     private static final String MAIN_VIEW_FILE_NAME = "main.fxml";
 
-    private static final String DEFAULT_CITY = "Warsaw";
+    private final String DEFAULT_CITY = "Warsaw";
 
-    @FXML
-    private AnchorPane currentLocationWeather;
+    private final WeatherForecastFetcher weatherForecastFetcher;
+
+    private WeatherForecast weatherForecast;
 
     @FXML
     private Label currentLocation;
@@ -47,11 +51,7 @@ public class MainWindowController extends BaseController implements Initializabl
     private Label date;
 
     @FXML
-    private AnchorPane targetLocationWeather;
-
-    CurrentWeatherConditions currentWeather;
-
-    private final WeatherForecastFetcher weatherForecastFetcher;
+    private HBox extendedForecast;
 
     public MainWindowController() {
         super(MAIN_VIEW_FILE_NAME);
@@ -61,9 +61,16 @@ public class MainWindowController extends BaseController implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            currentWeather = weatherForecastFetcher.fetchCurrentWeatherForecast();
-            if (currentWeather != null) {
+            weatherForecast = weatherForecastFetcher.fetchWeatherForecast();
+
+            if (weatherForecast.getCurrentWeatherConditions() != null) {
                 setUpCurrentWeatherView();
+            } else {
+                //show error: data cannot be fully downloaded
+            }
+
+            if (!weatherForecast.getDailyWeatherConditions().isEmpty()) {
+                setUpExtendedForecastView();
             } else {
                 //show error: data cannot be fully downloaded
             }
@@ -73,6 +80,8 @@ public class MainWindowController extends BaseController implements Initializabl
     }
 
     private void setUpCurrentWeatherView() {
+        CurrentWeatherConditions currentWeather = weatherForecast.getCurrentWeatherConditions();
+
         currentLocation.setText(currentWeather.getCityName());
         weatherIcon.setImage(new Image(currentWeather.getIconUrl()));
         weatherIcon.setFitHeight(60);
@@ -83,5 +92,20 @@ public class MainWindowController extends BaseController implements Initializabl
         pressure.setText(currentWeather.getPressure());
         wind.setText(currentWeather.getWindSpeed());
         date.setText(currentWeather.getDate());
+    }
+
+    private void setUpExtendedForecastView() {
+        for (DailyWeatherConditions dailyWeatherConditions : weatherForecast.getDailyWeatherConditions()) {
+            VBox dayVBox = new VBox();
+            dayVBox.getChildren().addAll(
+                    new Label(dailyWeatherConditions.getDate()),
+                    new ImageView(new Image(dailyWeatherConditions.getIconUrl())),
+                    new Label(dailyWeatherConditions.getDescription()),
+                    new Label(dailyWeatherConditions.getTemperature()),
+                    new Label(dailyWeatherConditions.getPressure())
+            );
+
+            extendedForecast.getChildren().add(dayVBox);
+        }
     }
 }
