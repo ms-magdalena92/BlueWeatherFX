@@ -1,6 +1,7 @@
 package blueWeather.controller;
 
 import blueWeather.model.CurrentWeatherConditions;
+import blueWeather.model.DailyWeatherConditions;
 import blueWeather.service.WeatherForecastFetcher;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,9 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import net.aksingh.owmjapis.api.APIException;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainWindowController extends BaseController implements Initializable {
@@ -49,9 +53,14 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     private AnchorPane targetLocationWeather;
 
+    @FXML
+    private HBox extendedForecast;
+
     CurrentWeatherConditions currentWeather;
 
     private final WeatherForecastFetcher weatherForecastFetcher;
+
+    private List<DailyWeatherConditions> dailyWeatherForecast;
 
     public MainWindowController() {
         super(MAIN_VIEW_FILE_NAME);
@@ -62,8 +71,15 @@ public class MainWindowController extends BaseController implements Initializabl
     public void initialize(URL location, ResourceBundle resources) {
         try {
             currentWeather = weatherForecastFetcher.fetchCurrentWeatherForecast();
+            dailyWeatherForecast = weatherForecastFetcher.fetchDailyWeatherForecast();
             if (currentWeather != null) {
                 setUpCurrentWeatherView();
+            } else {
+                //show error: data cannot be fully downloaded
+            }
+
+            if (!dailyWeatherForecast.isEmpty()) {
+                setUpExtendedForecastView();
             } else {
                 //show error: data cannot be fully downloaded
             }
@@ -83,5 +99,20 @@ public class MainWindowController extends BaseController implements Initializabl
         pressure.setText(currentWeather.getPressure());
         wind.setText(currentWeather.getWindSpeed());
         date.setText(currentWeather.getDate());
+    }
+
+    private void setUpExtendedForecastView() {
+        for (DailyWeatherConditions dailyWeatherConditions : dailyWeatherForecast) {
+            VBox dayVBox = new VBox();
+            dayVBox.getChildren().addAll(
+                    new Label(dailyWeatherConditions.getDate()),
+                    new ImageView(new Image(dailyWeatherConditions.getIconUrl())),
+                    new Label(dailyWeatherConditions.getDescription()),
+                    new Label(dailyWeatherConditions.getTemperature()),
+                    new Label(dailyWeatherConditions.getPressure())
+            );
+
+            extendedForecast.getChildren().add(dayVBox);
+        }
     }
 }
