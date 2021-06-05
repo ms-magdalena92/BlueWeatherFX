@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import net.aksingh.owmjapis.api.APIException;
@@ -23,8 +22,11 @@ public class MainWindowController extends BaseController implements Initializabl
 
     private static final String DEFAULT_CITY = "Warsaw";
 
-    @FXML
-    private AnchorPane currentLocationWeather;
+    CurrentWeatherConditions currentWeather;
+
+    private final WeatherForecastFetcher weatherForecastFetcher;
+
+    private List<DailyWeatherConditions> dailyWeatherForecast;
 
     @FXML
     private Label currentLocation;
@@ -51,16 +53,7 @@ public class MainWindowController extends BaseController implements Initializabl
     private Label date;
 
     @FXML
-    private AnchorPane targetLocationWeather;
-
-    @FXML
     private HBox extendedForecast;
-
-    CurrentWeatherConditions currentWeather;
-
-    private final WeatherForecastFetcher weatherForecastFetcher;
-
-    private List<DailyWeatherConditions> dailyWeatherForecast;
 
     public MainWindowController() {
         super(MAIN_VIEW_FILE_NAME);
