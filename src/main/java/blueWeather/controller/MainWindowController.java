@@ -2,6 +2,7 @@ package blueWeather.controller;
 
 import blueWeather.model.CurrentWeatherConditions;
 import blueWeather.model.DailyWeatherConditions;
+import blueWeather.model.WeatherForecast;
 import blueWeather.service.WeatherForecastFetcher;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,20 +14,17 @@ import javafx.scene.layout.VBox;
 import net.aksingh.owmjapis.api.APIException;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainWindowController extends BaseController implements Initializable {
 
     private static final String MAIN_VIEW_FILE_NAME = "main.fxml";
 
-    private static final String DEFAULT_CITY = "Warsaw";
-
-    CurrentWeatherConditions currentWeather;
+    private final String DEFAULT_CITY = "Warsaw";
 
     private final WeatherForecastFetcher weatherForecastFetcher;
 
-    private List<DailyWeatherConditions> dailyWeatherForecast;
+    private WeatherForecast weatherForecast;
 
     @FXML
     private Label currentLocation;
@@ -63,15 +61,15 @@ public class MainWindowController extends BaseController implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            currentWeather = weatherForecastFetcher.fetchCurrentWeatherForecast();
-            dailyWeatherForecast = weatherForecastFetcher.fetchDailyWeatherForecast();
-            if (currentWeather != null) {
+            weatherForecast = weatherForecastFetcher.fetchWeatherForecast();
+
+            if (weatherForecast.getCurrentWeatherConditions() != null) {
                 setUpCurrentWeatherView();
             } else {
                 //show error: data cannot be fully downloaded
             }
 
-            if (!dailyWeatherForecast.isEmpty()) {
+            if (!weatherForecast.getDailyWeatherConditions().isEmpty()) {
                 setUpExtendedForecastView();
             } else {
                 //show error: data cannot be fully downloaded
@@ -82,6 +80,8 @@ public class MainWindowController extends BaseController implements Initializabl
     }
 
     private void setUpCurrentWeatherView() {
+        CurrentWeatherConditions currentWeather = weatherForecast.getCurrentWeatherConditions();
+
         currentLocation.setText(currentWeather.getCityName());
         weatherIcon.setImage(new Image(currentWeather.getIconUrl()));
         weatherIcon.setFitHeight(60);
@@ -95,7 +95,7 @@ public class MainWindowController extends BaseController implements Initializabl
     }
 
     private void setUpExtendedForecastView() {
-        for (DailyWeatherConditions dailyWeatherConditions : dailyWeatherForecast) {
+        for (DailyWeatherConditions dailyWeatherConditions : weatherForecast.getDailyWeatherConditions()) {
             VBox dayVBox = new VBox();
             dayVBox.getChildren().addAll(
                     new Label(dailyWeatherConditions.getDate()),

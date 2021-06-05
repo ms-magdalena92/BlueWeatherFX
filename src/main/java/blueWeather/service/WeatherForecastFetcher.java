@@ -2,6 +2,7 @@ package blueWeather.service;
 
 import blueWeather.model.CurrentWeatherConditions;
 import blueWeather.model.DailyWeatherConditions;
+import blueWeather.model.WeatherForecast;
 import blueWeather.service.api.OwmWeatherMapApi;
 import net.aksingh.owmjapis.api.APIException;
 import net.aksingh.owmjapis.model.CurrentWeather;
@@ -21,7 +22,11 @@ public class WeatherForecastFetcher {
         weatherApi = new OwmWeatherMapApi();
     }
 
-    public CurrentWeatherConditions fetchCurrentWeatherForecast() throws APIException {
+    public WeatherForecast fetchWeatherForecast() throws APIException {
+        return new WeatherForecast(fetchCurrentWeatherForecast(), fetchDailyWeatherForecast());
+    }
+
+    private CurrentWeatherConditions fetchCurrentWeatherForecast() throws APIException {
         CurrentWeather currentWeather = weatherApi.getCurrentWeather(cityName);
         CurrentWeatherConditions currentWeatherConditions = null;
 
@@ -32,7 +37,7 @@ public class WeatherForecastFetcher {
         return currentWeatherConditions;
     }
 
-    public List<DailyWeatherConditions> fetchDailyWeatherForecast() throws APIException {
+    private List<DailyWeatherConditions> fetchDailyWeatherForecast() throws APIException {
         HourlyWeatherForecast hourlyWeatherForecast = weatherApi.getHourlyWeather(cityName);
         List<DailyWeatherConditions> dailyWeatherForecast = new ArrayList<>();
 
