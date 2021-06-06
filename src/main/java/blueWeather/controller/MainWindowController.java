@@ -2,7 +2,9 @@ package blueWeather.controller;
 
 import blueWeather.model.CurrentWeatherConditions;
 import blueWeather.model.DailyWeatherConditions;
+import blueWeather.model.Location;
 import blueWeather.model.WeatherForecast;
+import blueWeather.service.LocationHandler;
 import blueWeather.service.WeatherForecastFetcher;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import net.aksingh.owmjapis.api.APIException;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,7 +23,7 @@ public class MainWindowController extends BaseController implements Initializabl
 
     private static final String MAIN_VIEW_FILE_NAME = "main.fxml";
 
-    private final String DEFAULT_CITY = "Warsaw";
+    private Location location;
 
     private final WeatherForecastFetcher weatherForecastFetcher;
 
@@ -55,34 +58,70 @@ public class MainWindowController extends BaseController implements Initializabl
 
     public MainWindowController() {
         super(MAIN_VIEW_FILE_NAME);
-        weatherForecastFetcher = new WeatherForecastFetcher(DEFAULT_CITY);
+        weatherForecastFetcher = new WeatherForecastFetcher();
+        getCurrentLocation();
+
+    }
+
+    @FXML
+    void getLocation() {
+        getCurrentLocation();
+        clearAllViews();
+        setUpWeatherViews();
+    }
+
+    private void getCurrentLocation() {
+        try {
+            LocationHandler locationHandler = new LocationHandler();
+            this.location = locationHandler.getCurrentLocationByIp();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void clearAllViews() {
+        currentLocation.setText("");
+        weatherIcon.setImage(null);
+        currentTemperature.setText("");
+        weatherDescription.setText("");
+        humidity.setText("");
+        pressure.setText("");
+        wind.setText("");
+        date.setText("");
+        extendedForecast.getChildren().clear();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            weatherForecast = weatherForecastFetcher.fetchWeatherForecast();
+        setUpWeatherViews();
+    }
 
-            if (weatherForecast.getCurrentWeatherConditions() != null) {
-                setUpCurrentWeatherView();
-            } else {
-                //show error: data cannot be fully downloaded
-            }
+    private void setUpWeatherViews() {
+        if (location != null) {
+            try {
+                weatherForecast = weatherForecastFetcher.fetchWeatherForecast(location.getCity());
 
-            if (!weatherForecast.getDailyWeatherConditions().isEmpty()) {
-                setUpExtendedForecastView();
-            } else {
-                //show error: data cannot be fully downloaded
+                if (weatherForecast.getCurrentWeatherConditions() != null) {
+                    setUpCurrentWeatherView();
+                } else {
+                    //show error: data cannot be fully downloaded
+                }
+
+                if (!weatherForecast.getDailyWeatherConditions().isEmpty()) {
+                    setUpExtendedForecastView();
+                } else {
+                    //show error: data cannot be fully downloaded
+                }
+            } catch (APIException e) {
+                e.printStackTrace();
             }
-        } catch (APIException e) {
-            e.printStackTrace();
         }
     }
 
     private void setUpCurrentWeatherView() {
         CurrentWeatherConditions currentWeather = weatherForecast.getCurrentWeatherConditions();
 
-        currentLocation.setText(currentWeather.getCityName());
+        currentLocation.setText(currentWeather.getCityName() + ", " + location.getCountry());
         weatherIcon.setImage(new Image(currentWeather.getIconUrl()));
         weatherIcon.setFitHeight(60);
         weatherIcon.setFitWidth(60);
