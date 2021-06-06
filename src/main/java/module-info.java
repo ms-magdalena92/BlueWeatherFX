@@ -3,6 +3,8 @@ module blueWeather {
     requires javafx.fxml;
     requires owm.japis;
     requires java.sql;
+    requires java.net.http;
+    requires com.google.gson;
 
     opens blueWeather to javafx.fxml;
     exports blueWeather;
