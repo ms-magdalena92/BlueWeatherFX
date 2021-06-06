@@ -13,16 +13,16 @@ import java.util.*;
 
 public class WeatherForecastFetcher {
 
-    private final String cityName;
+    private String cityName;
 
     private final OwmWeatherMapApi weatherApi;
 
-    public WeatherForecastFetcher(String cityName) {
-        this.cityName = cityName;
+    public WeatherForecastFetcher() {
         weatherApi = new OwmWeatherMapApi();
     }
 
-    public WeatherForecast fetchWeatherForecast() throws APIException {
+    public WeatherForecast fetchWeatherForecast(String cityName) throws APIException {
+        this.cityName = cityName;
         return new WeatherForecast(fetchCurrentWeatherForecast(), fetchDailyWeatherForecast());
     }
 
