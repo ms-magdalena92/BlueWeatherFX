@@ -56,6 +56,9 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     private HBox extendedForecast;
 
+    @FXML
+    private Label generalError;
+
     public MainWindowController() {
         super(MAIN_VIEW_FILE_NAME);
         weatherForecastFetcher = new WeatherForecastFetcher();
@@ -89,6 +92,7 @@ public class MainWindowController extends BaseController implements Initializabl
         wind.setText("");
         date.setText("");
         extendedForecast.getChildren().clear();
+        generalError.setText("");
     }
 
     @Override
@@ -113,6 +117,12 @@ public class MainWindowController extends BaseController implements Initializabl
                     //show error: data cannot be fully downloaded
                 }
             } catch (APIException e) {
+                if (e.getCode() == 404 || e.getCode() == 400) {
+                    generalError.setText("City not found.");
+                } else {
+                    generalError.setText("Sorry, something went wrong. Please try again later.");
+                }
+
                 e.printStackTrace();
             }
         }
