@@ -111,20 +111,8 @@ public class MainWindowController extends BaseController implements Initializabl
         if (location != null) {
             try {
                 weatherForecast = weatherForecastFetcher.fetchWeatherForecast(location.getCity());
-
-                if (weatherForecast.getCurrentWeatherConditions() != null) {
-                    setUpCurrentWeatherView();
-                } else {
-                    setChildrenVisibility(currentLocation.getParent().getChildrenUnmodifiable(), false);
-                    currentWeatherError.setText("Sorry, data could not be fully downloaded.");
-                }
-
-                if (!weatherForecast.getDailyWeatherConditions().isEmpty()) {
-                    setUpExtendedForecastView();
-                } else {
-                    extendedForecast.setVisible(false);
-                    extendedForecastError.setText("Sorry, data could not be fully downloaded.");
-                }
+                showCurrentWeather();
+                showExtendedForecast();
             } catch (APIException e) {
                 clearAllViews();
 
@@ -136,6 +124,24 @@ public class MainWindowController extends BaseController implements Initializabl
 
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void showExtendedForecast() {
+        if (!weatherForecast.getDailyWeatherConditions().isEmpty()) {
+            setUpExtendedForecastView();
+        } else {
+            extendedForecast.setVisible(false);
+            extendedForecastError.setText("Sorry, data could not be fully downloaded.");
+        }
+    }
+
+    private void showCurrentWeather() {
+        if (weatherForecast.getCurrentWeatherConditions() != null) {
+            setUpCurrentWeatherView();
+        } else {
+            setChildrenVisibility(currentLocation.getParent().getChildrenUnmodifiable(), false);
+            currentWeatherError.setText("Sorry, data could not be fully downloaded.");
         }
     }
 
