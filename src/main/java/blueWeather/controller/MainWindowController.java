@@ -59,23 +59,47 @@ public class MainWindowController extends BaseController implements Initializabl
     public MainWindowController() {
         super(MAIN_VIEW_FILE_NAME);
         weatherForecastFetcher = new WeatherForecastFetcher();
+        getCurrentLocation();
+
+    }
+
+    @FXML
+    void getLocation() {
+        getCurrentLocation();
+        clearAllViews();
+        setUpWeatherViews();
+    }
+
+    private void getCurrentLocation() {
         try {
-            getCurrentLocation();
+            LocationHandler locationHandler = new LocationHandler();
+            this.location = locationHandler.getCurrentLocationByIp();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    private void getCurrentLocation() throws IOException, InterruptedException {
-        LocationHandler locationHandler = new LocationHandler();
-        this.location = locationHandler.getCurrentLocationByIp();
+    private void clearAllViews() {
+        currentLocation.setText("");
+        weatherIcon.setImage(null);
+        currentTemperature.setText("");
+        weatherDescription.setText("");
+        humidity.setText("");
+        pressure.setText("");
+        wind.setText("");
+        date.setText("");
+        extendedForecast.getChildren().clear();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (this.location != null) {
+        setUpWeatherViews();
+    }
+
+    private void setUpWeatherViews() {
+        if (location != null) {
             try {
-                weatherForecast = weatherForecastFetcher.fetchWeatherForecast(this.location.getCity());
+                weatherForecast = weatherForecastFetcher.fetchWeatherForecast(location.getCity());
 
                 if (weatherForecast.getCurrentWeatherConditions() != null) {
                     setUpCurrentWeatherView();
