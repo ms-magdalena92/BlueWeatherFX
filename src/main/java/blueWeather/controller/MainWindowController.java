@@ -6,8 +6,11 @@ import blueWeather.model.Location;
 import blueWeather.model.WeatherForecast;
 import blueWeather.service.LocationHandler;
 import blueWeather.service.WeatherForecastFetcher;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -57,7 +60,13 @@ public class MainWindowController extends BaseController implements Initializabl
     private HBox extendedForecast;
 
     @FXML
+    private Label extendedForecastError;
+
+    @FXML
     private Label generalError;
+
+    @FXML
+    private Label currentWeatherError;
 
     public MainWindowController() {
         super(MAIN_VIEW_FILE_NAME);
@@ -66,8 +75,13 @@ public class MainWindowController extends BaseController implements Initializabl
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setUpWeatherViews();
+    }
+
     @FXML
-    void getLocation() {
+    private void getLocation() {
         getCurrentLocation();
         clearAllViews();
         setUpWeatherViews();
@@ -83,21 +97,14 @@ public class MainWindowController extends BaseController implements Initializabl
     }
 
     private void clearAllViews() {
-        currentLocation.setText("");
-        weatherIcon.setImage(null);
-        currentTemperature.setText("");
-        weatherDescription.setText("");
-        humidity.setText("");
-        pressure.setText("");
-        wind.setText("");
-        date.setText("");
-        extendedForecast.getChildren().clear();
+        ObservableList<Node> panesChildren = FXCollections.concat(
+                currentLocation.getParent().getChildrenUnmodifiable(),
+                extendedForecast.getParent().getChildrenUnmodifiable()
+        );
+        setChildrenVisibility(panesChildren, false);
         generalError.setText("");
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        setUpWeatherViews();
+        currentWeatherError.setText("");
+        extendedForecastError.setText("");
     }
 
     private void setUpWeatherViews() {
@@ -108,19 +115,23 @@ public class MainWindowController extends BaseController implements Initializabl
                 if (weatherForecast.getCurrentWeatherConditions() != null) {
                     setUpCurrentWeatherView();
                 } else {
-                    //show error: data cannot be fully downloaded
+                    setChildrenVisibility(currentLocation.getParent().getChildrenUnmodifiable(), false);
+                    currentWeatherError.setText("Sorry, data could not be fully downloaded.");
                 }
 
                 if (!weatherForecast.getDailyWeatherConditions().isEmpty()) {
                     setUpExtendedForecastView();
                 } else {
-                    //show error: data cannot be fully downloaded
+                    extendedForecast.setVisible(false);
+                    extendedForecastError.setText("Sorry, data could not be fully downloaded.");
                 }
             } catch (APIException e) {
+                clearAllViews();
+
                 if (e.getCode() == 404 || e.getCode() == 400) {
                     generalError.setText("City not found.");
                 } else {
-                    generalError.setText("Sorry, something went wrong. Please try again later.");
+                    generalError.setText("Sorry, something went wrong.");
                 }
 
                 e.printStackTrace();
@@ -130,6 +141,8 @@ public class MainWindowController extends BaseController implements Initializabl
 
     private void setUpCurrentWeatherView() {
         CurrentWeatherConditions currentWeather = weatherForecast.getCurrentWeatherConditions();
+
+        setChildrenVisibility(currentLocation.getParent().getChildrenUnmodifiable(), true);
 
         currentLocation.setText(currentWeather.getCityName() + ", " + location.getCountry());
         weatherIcon.setImage(new Image(currentWeather.getIconUrl()));
@@ -144,6 +157,9 @@ public class MainWindowController extends BaseController implements Initializabl
     }
 
     private void setUpExtendedForecastView() {
+        extendedForecast.getChildren().clear();
+        extendedForecast.setVisible(true);
+
         for (DailyWeatherConditions dailyWeatherConditions : weatherForecast.getDailyWeatherConditions()) {
             VBox dayVBox = new VBox();
             dayVBox.getChildren().addAll(
@@ -155,6 +171,12 @@ public class MainWindowController extends BaseController implements Initializabl
             );
 
             extendedForecast.getChildren().add(dayVBox);
+        }
+    }
+
+    private void setChildrenVisibility(ObservableList<Node> children, boolean visible) {
+        for (Node child : children) {
+            child.setVisible(visible);
         }
     }
 }
