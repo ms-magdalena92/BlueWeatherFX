@@ -12,12 +12,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import net.aksingh.owmjapis.api.APIException;
+import org.controlsfx.control.textfield.TextFields;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -67,6 +70,9 @@ public class WeatherBaseController implements Initializable {
     @FXML
     private Label currentWeatherError;
 
+    @FXML
+    private TextField locationInput;
+
     public WeatherBaseController() {
         weatherForecastFetcher = new WeatherForecastFetcher();
         locationHandler = new LocationHandler();
@@ -78,6 +84,23 @@ public class WeatherBaseController implements Initializable {
 
     @FXML
     protected void getLocation() {
+        getTargetLocation();
+        clearAllViews();
+        setUpWeatherViews();
+    }
+
+    private void getTargetLocation() {
+        location = new Location();
+        location.setCityAndCountryCode(locationInput.getText());
+    }
+
+    protected void setUpLocationPicker() {
+        try {
+            TextFields.bindAutoCompletion(locationInput, locationHandler.getCityList().values());
+        } catch (IOException e) {
+            generalError.setText("Sorry, list of available city could not be initialized.");
+            e.printStackTrace();
+        }
     }
 
     protected void clearAllViews() {

@@ -1,29 +1,28 @@
 package blueWeather.controller;
 
+import javafx.fxml.FXML;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CurrentLocationWeatherController extends WeatherBaseController {
 
-    public CurrentLocationWeatherController() {
-        super();
-        getCurrentLocation();
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        getLocationByIp();
         setUpWeatherViews();
+        setUpLocationPicker();
     }
 
-    @Override
-    protected void getLocation() {
-        getCurrentLocation();
+    @FXML
+    private void getCurrentLocation() {
+        getLocationByIp();
         clearAllViews();
         setUpWeatherViews();
     }
 
-    private void getCurrentLocation() {
+    private void getLocationByIp() {
         try {
             this.location = locationHandler.getCurrentLocationByIp();
         } catch (IOException | InterruptedException e) {
