@@ -1,24 +1,30 @@
 package blueWeather.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Location {
 
-    private String country;
+    @SerializedName(value = "countryCode", alternate = {"country"})
+    private String countryCode;
 
+    @SerializedName(value = "city", alternate = {"name"})
     private String city;
 
-    public String getCountry() {
-        return country;
-    }
+    private String cityAndCountryCode = null;
 
-    public void setCountry(String country) {
-        this.country = country;
+    public String getCountryCode() {
+        return countryCode;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public String getCityAndCountryCode() {
+        return cityAndCountryCode != null ? cityAndCountryCode : city + ", " + countryCode;
+    }
+
+    public void setCityAndCountryCode(String cityAndCountryCode) {
+        this.cityAndCountryCode = cityAndCountryCode;
     }
 }

@@ -1,127 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.5" layoutX="26.0" layoutY="43.0" prefHeight="362.0" prefWidth="603.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
         <items>
-          <AnchorPane fx:id="currentLocationWeather" minHeight="0.0" minWidth="0.0" prefHeight="518.0" prefWidth="588.0">
-               <children>
-                  <Label layoutX="14.0" layoutY="35.0" text="Current Weather">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <AnchorPane layoutX="5.0" layoutY="56.0" prefHeight="161.0" prefWidth="486.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
-                     <children>
-                        <Label fx:id="currentLocation" layoutX="12.0" layoutY="14.0" text="City, Country">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <ImageView fx:id="weatherIcon" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="currentTemperature" layoutX="89.0" layoutY="52.0" text="Temp">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="weatherDescription" layoutX="12.0" layoutY="124.0" text="weather description">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <GridPane layoutX="242.0" layoutY="52.0" prefHeight="70.0" prefWidth="200.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label text="Humidity">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Wind" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="humidity" text="Humidity" GridPane.columnIndex="1">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="pressure" text="Pressure" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="wind" text="Wind" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Pressure" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </GridPane>
-                        <Label fx:id="date" layoutX="242.0" layoutY="14.0" text="Date">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="5.0" layoutY="267.0" prefHeight="139.0" prefWidth="486.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
-                     <children>
-                        <HBox fx:id="extendedForecast" layoutY="26.0" prefHeight="173.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <Button layoutX="209.0" layoutY="432.0" mnemonicParsing="false" onAction="#getLocation" text="Your Location">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="generalError" alignment="CENTER" layoutX="8.0" layoutY="8.0" prefHeight="27.0" prefWidth="480.0" textFill="RED">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="currentWeatherError" alignment="CENTER" layoutX="138.0" layoutY="34.0" prefHeight="27.0" prefWidth="337.0" textFill="RED">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="14.0" layoutY="233.0" text="Extended Forecast">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="extendedForecastError" alignment="CENTER" layoutX="153.0" layoutY="232.0" prefHeight="27.0" prefWidth="320.0" textFill="RED">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-               </children></AnchorPane>
-          <AnchorPane fx:id="targetLocationWeather" minHeight="0.0" minWidth="0.0" prefHeight="518.0" prefWidth="732.0" />
+           <fx:include fx:id="currentLocationWeather" source="currentLocationWeather.fxml" />
+           <fx:include fx:id="targetLocationWeather" source="targetLocationWeather.fxml" />
         </items>
       </SplitPane>
       <Label layoutX="429.0" layoutY="27.0" text="BlueWeather" AnchorPane.topAnchor="27.0">
