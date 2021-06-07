@@ -42,7 +42,7 @@ public class LocationHandler {
         Map<String, String> cityListWithCountryCode = new HashMap<>();
 
         for (Location location : cityList) {
-            cityListWithCountryCode.put(location.getCity(), location.getCity() + ", " + location.getCountry());
+            cityListWithCountryCode.put(location.getCity(), location.getCity() + ", " + location.getCountryCode());
         }
 
         return cityListWithCountryCode;

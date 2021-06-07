@@ -94,7 +94,7 @@ public class WeatherBaseController implements Initializable {
     protected void setUpWeatherViews() {
         if (location != null) {
             try {
-                weatherForecast = weatherForecastFetcher.fetchWeatherForecast(location.getCity());
+                weatherForecast = weatherForecastFetcher.fetchWeatherForecast(location.getCityAndCountryCode());
                 showCurrentWeather();
                 showExtendedForecast();
             } catch (APIException e) {
@@ -134,7 +134,7 @@ public class WeatherBaseController implements Initializable {
 
         setChildrenVisibility(currentLocation.getParent().getChildrenUnmodifiable(), true);
 
-        currentLocation.setText(currentWeather.getCityName() + ", " + location.getCountry());
+        currentLocation.setText(location.getCityAndCountryCode());
         weatherIcon.setImage(new Image(currentWeather.getIconUrl()));
         weatherIcon.setFitHeight(60);
         weatherIcon.setFitWidth(60);
