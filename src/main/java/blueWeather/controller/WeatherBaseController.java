@@ -103,7 +103,7 @@ public class WeatherBaseController implements Initializable {
                 if (e.getCode() == 404 || e.getCode() == 400) {
                     generalError.setText("City not found.");
                 } else {
-                    generalError.setText("Sorry, something went wrong.");
+                    generalError.setText("Sorry, something went wrong: API error.");
                 }
 
                 e.printStackTrace();
