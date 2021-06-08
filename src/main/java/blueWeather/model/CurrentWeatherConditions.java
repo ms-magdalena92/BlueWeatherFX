@@ -26,7 +26,7 @@ public class CurrentWeatherConditions extends WeatherBase {
     }
 
     public String getTemperature() {
-        return (int) temperature + "\u00b0C";
+        return (int) temperature + "\u00b0";
     }
 
     public String getHumidity() {
