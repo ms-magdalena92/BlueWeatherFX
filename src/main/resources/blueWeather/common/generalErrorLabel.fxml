@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.*?>
-
-<Label styleClass="error" alignment="CENTER" layoutX="90.0" layoutY="1.0" prefHeight="27.0" prefWidth="335.0"/>

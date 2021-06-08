@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.*?>
-
-<Label id="temperatureLabel" layoutX="120.0" layoutY="48.0" text="Temp"/>

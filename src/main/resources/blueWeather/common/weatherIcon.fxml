@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.image.ImageView?>
-
-<ImageView fitHeight="85.0" fitWidth="85.0" layoutX="12.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true"/>

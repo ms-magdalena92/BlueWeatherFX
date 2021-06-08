@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.Label?>
-
-<Label id="descriptionLabel" layoutX="20.0" layoutY="124.0" text="weather description"/>
