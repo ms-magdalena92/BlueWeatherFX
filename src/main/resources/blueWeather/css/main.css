@@ -1,0 +1,15 @@
+#mainPane {
+    -fx-background-image: url("img/weather.png");
+    -fx-background-repeat: repeat;
+    -fx-background-size: auto;
+    -fx-background-position: left top, bottom right;
+}
+
+.split-pane, .split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.weatherContainer {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+}
