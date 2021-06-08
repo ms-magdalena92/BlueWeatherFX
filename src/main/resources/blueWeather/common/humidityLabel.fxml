@@ -3,4 +3,4 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Label text="Humidity" GridPane.columnIndex="1"/>
+<Label styleClass="bolder" text="Humidity" GridPane.columnIndex="1"/>

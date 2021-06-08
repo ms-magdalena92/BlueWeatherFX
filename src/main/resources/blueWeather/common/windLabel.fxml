@@ -3,4 +3,4 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Label text="Wind" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+<Label styleClass="bolder" text="Wind" GridPane.columnIndex="1" GridPane.rowIndex="1"/>

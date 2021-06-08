@@ -1,8 +1,38 @@
+@font-face{
+  font-family: 'Poppins';
+  font-weight: 400;
+  src: url('fonts/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face{
+  font-family: 'Poppins';
+  font-weight: 500;
+  src: url('fonts/Poppins-Medium.ttf') format('truetype');
+}
+
+@font-face{
+  font-family: 'Poppins';
+  font-weight: 600;
+  src: url('fonts/Poppins-SemiBold.ttf') format('truetype');
+}
+
+@font-face{
+  font-family: 'Poppins';
+  font-weight: 700;
+  src: url('fonts/Poppins-Bold.ttf') format('truetype');
+}
+
 #mainPane {
-    -fx-background-image: url("img/weather.png");
+    -fx-background-image: url('img/weather.png');
     -fx-background-repeat: repeat;
     -fx-background-size: auto;
     -fx-background-position: left top, bottom right;
+    -fx-font-family: 'Poppins Medium';
+}
+
+.label {
+    -fx-text-fill: #919191;
+    -fx-font-size: 13;
 }
 
 .split-pane, .split-pane-divider {
@@ -10,6 +40,45 @@
 }
 
 .weatherContainer {
-    -fx-background-color: white;
+    -fx-background-color: rgba(255, 255, 255, 0.65);
     -fx-background-radius: 20;
+}
+
+.title {
+    -fx-font-size: 16;
+    -fx-font-family: 'Poppins SemiBold';
+    -fx-text-fill: #64738f;
+}
+
+.dateLabel {
+    -fx-font-family: 'Poppins SemiBold';
+    -fx-text-fill: #4682b4;
+    -fx-font-size: 14;
+}
+
+#temperatureLabel {
+    -fx-font-size: 44;
+    -fx-font-family: 'Poppins Regular';
+    -fx-text-fill: #636363;
+}
+
+#locationLabel {
+    -fx-font-family: 'Poppins SemiBold';
+    -fx-text-fill: #4682b4;
+    -fx-font-size: 16;
+}
+
+.bolder {
+    -fx-font-family: 'Poppins SemiBold';
+    -fx-text-fill: #787878;
+}
+
+.smaller {
+    -fx-font-size: 12;
+}
+
+#descriptionLabel {
+    -fx-font-family: 'Poppins SemiBold';
+    -fx-text-fill: #787878;
+    -fx-font-size: 14;
 }

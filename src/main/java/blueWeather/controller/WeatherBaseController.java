@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -159,8 +160,6 @@ public class WeatherBaseController implements Initializable {
 
         currentLocation.setText(location.getCityAndCountryCode());
         weatherIcon.setImage(new Image(currentWeather.getIconUrl()));
-        weatherIcon.setFitHeight(60);
-        weatherIcon.setFitWidth(60);
         currentTemperature.setText(currentWeather.getTemperature());
         weatherDescription.setText(currentWeather.getDescription());
         humidity.setText(currentWeather.getHumidity());
@@ -175,15 +174,28 @@ public class WeatherBaseController implements Initializable {
 
         for (DailyWeatherConditions dailyWeatherConditions : weatherForecast.getDailyWeatherConditions()) {
             VBox dayVBox = new VBox();
+
+            Label dateLabel = new Label(dailyWeatherConditions.getDate());
+            dateLabel.getStyleClass().add("dateLabel");
+            Label descriptionLabel = new Label(dailyWeatherConditions.getDescription());
+            descriptionLabel.getStyleClass().add("bolder");
+
+            Label temperatureLabel = new Label(dailyWeatherConditions.getTemperature());
+            temperatureLabel.getStyleClass().add("bolder");
+            Label pressureLabel = new Label(dailyWeatherConditions.getPressure());
+            temperatureLabel.getStyleClass().add("smaller");
+
             dayVBox.getChildren().addAll(
-                    new Label(dailyWeatherConditions.getDate()),
+                    dateLabel,
                     new ImageView(new Image(dailyWeatherConditions.getIconUrl())),
-                    new Label(dailyWeatherConditions.getDescription()),
-                    new Label(dailyWeatherConditions.getTemperature()),
-                    new Label(dailyWeatherConditions.getPressure())
+                    descriptionLabel,
+                    temperatureLabel,
+                    pressureLabel
             );
+            dayVBox.setAlignment(Pos.CENTER);
 
             extendedForecast.getChildren().add(dayVBox);
+            extendedForecast.setSpacing(35);
         }
     }
 

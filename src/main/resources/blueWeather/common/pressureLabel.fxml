@@ -3,4 +3,4 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Label text="Pressure" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+<Label styleClass="bolder" text="Pressure" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
