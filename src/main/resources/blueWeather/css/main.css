@@ -82,3 +82,9 @@
     -fx-text-fill: #787878;
     -fx-font-size: 14;
 }
+
+.error {
+    -fx-font-family: 'Poppins Medium';
+    -fx-text-fill: #f2304e;
+    -fx-font-size: 14;
+}

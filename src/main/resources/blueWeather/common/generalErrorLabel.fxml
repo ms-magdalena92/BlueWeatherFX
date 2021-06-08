@@ -2,4 +2,4 @@
 
 <?import javafx.scene.control.*?>
 
-<Label alignment="CENTER" layoutX="8.0" layoutY="8.0" prefHeight="27.0" prefWidth="480.0"/>
+<Label styleClass="error" alignment="CENTER" layoutX="90.0" layoutY="1.0" prefHeight="27.0" prefWidth="335.0"/>

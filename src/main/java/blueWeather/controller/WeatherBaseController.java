@@ -140,7 +140,7 @@ public class WeatherBaseController implements Initializable {
             setUpExtendedForecastView();
         } else {
             extendedForecast.setVisible(false);
-            extendedForecastError.setText("Sorry, data could not be fully downloaded.");
+            extendedForecastError.setText("Data could not be fully downloaded.");
         }
     }
 
@@ -149,7 +149,7 @@ public class WeatherBaseController implements Initializable {
             setUpCurrentWeatherView();
         } else {
             setChildrenVisibility(currentLocation.getParent().getChildrenUnmodifiable(), false);
-            currentWeatherError.setText("Sorry, data could not be fully downloaded.");
+            currentWeatherError.setText("Data could not be fully downloaded.");
         }
     }
 
