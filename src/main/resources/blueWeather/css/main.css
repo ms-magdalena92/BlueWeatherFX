@@ -88,3 +88,9 @@
     -fx-text-fill: #f2304e;
     -fx-font-size: 14;
 }
+
+#logo {
+    -fx-font-family: 'Poppins SemiBold';
+    -fx-text-fill: #64738f;
+    -fx-font-size: 42;
+}
