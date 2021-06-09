@@ -15,14 +15,14 @@
             fx:controller="blueWeather.controller.TargetLocationWeatherController">
     <children>
         <Label layoutX="34.0" layoutY="30.0" styleClass="title" text="Current Weather"/>
-        <AnchorPane layoutX="5.0" layoutY="56.0" prefHeight="161.0" prefWidth="486.0" styleClass="weatherContainer"
+        <AnchorPane layoutX="5.0" layoutY="56.0" prefHeight="161.0" prefWidth="486.0" styleClass="weather-container"
                     AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
             <children>
-                <Label id="locationLabel" fx:id="currentLocation" layoutX="20.0" layoutY="14.0" text="City, Country"/>
+                <Label id="location-label" fx:id="currentLocation" layoutX="20.0" layoutY="14.0" text="City, Country"/>
                 <ImageView fx:id="weatherIcon" fitHeight="85.0" fitWidth="85.0" layoutX="12.0" layoutY="40.0"
                            pickOnBounds="true" preserveRatio="true"/>
-                <Label id="temperatureLabel" fx:id="currentTemperature" layoutX="120.0" layoutY="48.0" text="Temp"/>
-                <Label id="descriptionLabel" fx:id="weatherDescription" layoutX="20.0" layoutY="124.0"
+                <Label id="temperature-label" fx:id="currentTemperature" layoutX="120.0" layoutY="48.0" text="Temp"/>
+                <Label id="description-label" fx:id="weatherDescription" layoutX="20.0" layoutY="124.0"
                        text="weather description"/>
                 <GridPane layoutX="275.0" layoutY="52.0" prefHeight="70.0" prefWidth="200.0">
                     <columnConstraints>
@@ -45,10 +45,10 @@
                         <Label styleClass="smaller" text="Pressure" GridPane.rowIndex="2"/>
                     </children>
                 </GridPane>
-                <Label fx:id="date" layoutX="275.0" layoutY="14.0" styleClass="dateLabel" text="Date"/>
+                <Label fx:id="date" layoutX="275.0" layoutY="14.0" styleClass="date-label" text="Date"/>
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="5.0" layoutY="255.0" prefHeight="150.0" prefWidth="460.0" styleClass="weatherContainer"
+        <AnchorPane layoutX="5.0" layoutY="255.0" prefHeight="150.0" prefWidth="460.0" styleClass="weather-container"
                     AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
             <children>
                 <HBox fx:id="extendedForecast" alignment="CENTER" layoutY="26.0" prefHeight="173.0" prefWidth="486.0"
