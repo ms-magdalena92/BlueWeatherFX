@@ -64,6 +64,10 @@ public class WeatherForecastFetcher {
                         dailyWeatherForecast.add(dailyWeatherConditions);
                         dayTemperature = 0;
                     }
+
+                    if (dailyWeatherForecast.size() == 4) {
+                        break;
+                    }
                 }
             }
         }
