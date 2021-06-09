@@ -3,25 +3,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <SplitPane dividerPositions="0.5" layoutX="26.0" layoutY="43.0" prefHeight="362.0" prefWidth="603.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
-        <items>
-           <fx:include fx:id="currentLocationWeather" source="currentLocationWeather.fxml" />
-           <fx:include fx:id="targetLocationWeather" source="targetLocationWeather.fxml" />
-        </items>
-      </SplitPane>
-      <Label layoutX="429.0" layoutY="27.0" text="BlueWeather" AnchorPane.topAnchor="27.0">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="406.0" layoutY="569.0" text="Developed By Magdalena Słomiany">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <SplitPane dividerPositions="0.5" layoutX="26.0" layoutY="43.0" prefHeight="362.0" prefWidth="603.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+            <items>
+                <fx:include fx:id="currentLocationWeather" source="currentLocationWeather.fxml" />
+                <fx:include fx:id="targetLocationWeather" source="targetLocationWeather.fxml" />
+            </items>
+        </SplitPane>
+        <Label id="logo" alignment="CENTER" contentDisplay="CENTER" layoutX="199.0" layoutY="24.0" prefHeight="17.0" prefWidth="603.0" text="BlueWeather" AnchorPane.topAnchor="24.0" />
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="345.0" layoutY="569.0" prefHeight="17.0" prefWidth="311.0" text="Developed By Magdalena Słomiany" />
+    </children>
 </AnchorPane>

@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class ViewFactory {
 
@@ -30,6 +31,7 @@ public class ViewFactory {
         }
 
         Scene scene = new Scene(parent);
+        scene.getStylesheets().add(Objects.requireNonNull(App.class.getResource("css/main.css")).toExternalForm());
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
