@@ -176,7 +176,7 @@ public class WeatherBaseController implements Initializable {
             VBox dayVBox = new VBox();
 
             Label dateLabel = new Label(dailyWeatherConditions.getDate());
-            dateLabel.getStyleClass().add("dateLabel");
+            dateLabel.getStyleClass().add("date-label");
             Label descriptionLabel = new Label(dailyWeatherConditions.getDescription());
             descriptionLabel.getStyleClass().add("bolder");
 
