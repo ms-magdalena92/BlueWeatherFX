@@ -94,3 +94,15 @@
     -fx-text-fill: #64738f;
     -fx-font-size: 42;
 }
+
+.button {
+    -fx-background-color: linear-gradient(#f0b273, #d17d28);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-background-radius: 30;
+    -fx-text-fill: #787878;
+}
