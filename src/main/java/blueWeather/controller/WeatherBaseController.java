@@ -21,7 +21,6 @@ import javafx.scene.layout.VBox;
 import net.aksingh.owmjapis.api.APIException;
 import org.controlsfx.control.textfield.TextFields;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -96,12 +95,7 @@ public class WeatherBaseController implements Initializable {
     }
 
     protected void setUpLocationPicker() {
-        try {
-            TextFields.bindAutoCompletion(locationInput, locationHandler.getCityList().values());
-        } catch (IOException e) {
-            generalError.setText("Sorry, list of available city could not be initialized.");
-            e.printStackTrace();
-        }
+        TextFields.bindAutoCompletion(locationInput, locationHandler.getCityList().values());
     }
 
     protected void clearAllViews() {
