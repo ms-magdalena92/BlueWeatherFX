@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class LocationHandler {
 
@@ -47,12 +47,11 @@ public class LocationHandler {
     }
 
     private Map<String, String> getCityListMap(List<Location> cityList) {
-        Map<String, String> cityListWithCountryCode = new HashMap<>();
-
-        for (Location location : cityList) {
-            cityListWithCountryCode.put(location.getCity(), location.getCity() + ", " + location.getCountryCode());
-        }
-
-        return cityListWithCountryCode;
+        return cityList.stream()
+                .collect(Collectors.toMap(
+                        Location::getCity,
+                        location -> location.getCity() + ", " + location.getCountryCode(),
+                        (l1, l2) -> l1
+                ));
     }
 }
