@@ -13,6 +13,8 @@ import java.util.*;
 
 public class WeatherForecastFetcher {
 
+    private static final int WEATHER_FORECAST_DAYS_COUNT = 4;
+
     private final OwmWeatherMapApi weatherApi;
 
     public WeatherForecastFetcher() {
@@ -49,12 +51,12 @@ public class WeatherForecastFetcher {
                 if (getDayOfWeek(new Date()) != getDayOfWeek(date)) {
                     int hour = getHour(date);
 
-                    if (hour > 12 && hour <= 15) {
+                    if (isDayTemperature(hour)) {
                         dayTemperature = weatherData.getMainData().getTemp();
                         dayWeather = weatherData;
                     }
 
-                    if (hour > 21 && dayTemperature != 0) {
+                    if (isNightTemperature(hour) && dayTemperature != 0) {
                         nightTemperature = weatherData.getMainData().getTemp();
                         DailyWeatherConditions dailyWeatherConditions = new DailyWeatherConditions(dayWeather,
                                 dayTemperature, nightTemperature);
@@ -62,7 +64,7 @@ public class WeatherForecastFetcher {
                         dayTemperature = 0;
                     }
 
-                    if (dailyWeatherForecast.size() == 4) {
+                    if (dailyWeatherForecast.size() == WEATHER_FORECAST_DAYS_COUNT) {
                         break;
                     }
                 }
@@ -70,6 +72,14 @@ public class WeatherForecastFetcher {
         }
 
         return dailyWeatherForecast;
+    }
+
+    private boolean isNightTemperature(int hour) {
+        return hour > 21;
+    }
+
+    private boolean isDayTemperature(int hour) {
+        return hour > 12 && hour <= 15;
     }
 
     private int getDayOfWeek(Date date) {
