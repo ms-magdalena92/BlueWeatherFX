@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class LocationHandler {
 
-    private final String CITY_LIST_FILE_PATH = "json/city.list.min.json";
+    private static final String CITY_LIST_FILE_PATH = "json/city.list.min.json";
 
     public Location getCurrentLocationByIp() throws IOException, InterruptedException {
         IpApi ipApi = new IpApi();
