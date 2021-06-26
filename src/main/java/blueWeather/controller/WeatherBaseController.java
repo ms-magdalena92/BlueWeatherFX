@@ -6,6 +6,8 @@ import blueWeather.model.Location;
 import blueWeather.model.WeatherForecast;
 import blueWeather.service.LocationHandler;
 import blueWeather.service.WeatherForecastFetcher;
+import blueWeather.service.api.IpApi;
+import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -74,8 +76,10 @@ public class WeatherBaseController implements Initializable {
     private TextField locationInput;
 
     public WeatherBaseController() {
+        Gson gson = new Gson();
+        IpApi ipApi = new IpApi(gson);
+        locationHandler = new LocationHandler(gson, ipApi);
         weatherForecastFetcher = new WeatherForecastFetcher();
-        locationHandler = new LocationHandler();
     }
 
     @Override

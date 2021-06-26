@@ -17,10 +17,18 @@ import java.util.Objects;
 
 public class LocationHandler {
 
+    private final IpApi ipApi;
+
+    private final Gson gson;
+
+    public LocationHandler(Gson gson, IpApi ipApi) {
+        this.gson = gson;
+        this.ipApi = ipApi;
+    }
+
     private static final String CITY_LIST_FILE_PATH = "json/city.list.min.json";
 
     public Location getCurrentLocationByIp() throws IOException, InterruptedException {
-        IpApi ipApi = new IpApi();
         return ipApi.getLocationByIP();
     }
 
@@ -32,7 +40,6 @@ public class LocationHandler {
         Type LOCATION_TYPE = new TypeToken<List<Location>>() {
         }.getType();
 
-        Gson gson = new Gson();
         InputStreamReader inputReader = new InputStreamReader(Objects.requireNonNull(App.class.getResourceAsStream(CITY_LIST_FILE_PATH)), StandardCharsets.UTF_8);
         List<Location> cityList = gson.fromJson(inputReader, LOCATION_TYPE);
 
