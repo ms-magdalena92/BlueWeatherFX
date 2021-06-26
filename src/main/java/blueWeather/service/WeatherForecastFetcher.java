@@ -9,6 +9,9 @@ import net.aksingh.owmjapis.model.CurrentWeather;
 import net.aksingh.owmjapis.model.HourlyWeatherForecast;
 import net.aksingh.owmjapis.model.param.WeatherData;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class WeatherForecastFetcher {
@@ -82,15 +85,11 @@ public class WeatherForecastFetcher {
         return hour > 12 && hour <= 15;
     }
 
-    private int getDayOfWeek(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar.get(Calendar.DAY_OF_WEEK);
+    private DayOfWeek getDayOfWeek(Date date) {
+        return LocalDate.from(date.toInstant()).getDayOfWeek();
     }
 
     private int getHour(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar.get(Calendar.HOUR_OF_DAY);
+        return LocalDateTime.from(date.toInstant()).getHour();
     }
 }
