@@ -13,8 +13,6 @@ import java.util.*;
 
 public class WeatherForecastFetcher {
 
-    private String cityName;
-
     private final OwmWeatherMapApi weatherApi;
 
     public WeatherForecastFetcher() {
@@ -22,11 +20,10 @@ public class WeatherForecastFetcher {
     }
 
     public WeatherForecast fetchWeatherForecast(String cityName) throws APIException {
-        this.cityName = cityName;
-        return new WeatherForecast(fetchCurrentWeatherForecast(), fetchDailyWeatherForecast());
+        return new WeatherForecast(fetchCurrentWeatherForecast(cityName), fetchDailyWeatherForecast(cityName));
     }
 
-    private CurrentWeatherConditions fetchCurrentWeatherForecast() throws APIException {
+    private CurrentWeatherConditions fetchCurrentWeatherForecast(String cityName) throws APIException {
         CurrentWeather currentWeather = weatherApi.getCurrentWeather(cityName);
         CurrentWeatherConditions currentWeatherConditions = null;
 
@@ -37,7 +34,7 @@ public class WeatherForecastFetcher {
         return currentWeatherConditions;
     }
 
-    private List<DailyWeatherConditions> fetchDailyWeatherForecast() throws APIException {
+    private List<DailyWeatherConditions> fetchDailyWeatherForecast(String cityName) throws APIException {
         HourlyWeatherForecast hourlyWeatherForecast = weatherApi.getHourlyWeather(cityName);
         List<DailyWeatherConditions> dailyWeatherForecast = new ArrayList<>();
 
