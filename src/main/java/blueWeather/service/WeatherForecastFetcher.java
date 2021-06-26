@@ -63,7 +63,7 @@ public class WeatherForecastFetcher {
                     if (isNightTemperature(hour) && dayTemperature != 0) {
                         nightTemperature = weatherData.getMainData().getTemp();
                         DailyWeatherConditions dailyWeatherConditions = new DailyWeatherConditions(dayWeather,
-                                dayTemperature, nightTemperature);
+                                (int) Math.round(dayTemperature), (int) Math.round(nightTemperature));
                         dailyWeatherForecast.add(dailyWeatherConditions);
                         dayTemperature = 0;
                     }
