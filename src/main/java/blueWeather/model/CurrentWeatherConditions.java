@@ -4,11 +4,11 @@ import net.aksingh.owmjapis.model.CurrentWeather;
 
 public class CurrentWeatherConditions extends WeatherBase {
 
-    private final double temperature;
+    private final int temperature;
 
-    private final double humidity;
+    private final int humidity;
 
-    private final double windSpeed;
+    private final int windSpeed;
 
     private final String cityName;
 
@@ -19,22 +19,22 @@ public class CurrentWeatherConditions extends WeatherBase {
                 currentWeather.getWeatherList().get(0).getDescription(),
                 currentWeather.getWeatherList().get(0).getIconLink()
         );
-        temperature = currentWeather.getMainData().getTemp();
-        humidity = currentWeather.getMainData().getHumidity();
-        windSpeed = currentWeather.getWindData().getSpeed();
+        temperature = (int) Math.round(currentWeather.getMainData().getTemp());
+        humidity = (int) Math.round(currentWeather.getMainData().getHumidity());
+        windSpeed = (int) Math.round(currentWeather.getWindData().getSpeed());
         cityName = currentWeather.getCityName();
     }
 
     public String getTemperature() {
-        return (int) temperature + "\u00b0";
+        return temperature + "\u00b0";
     }
 
     public String getHumidity() {
-        return (int) humidity + "%";
+        return humidity + "%";
     }
 
     public String getWindSpeed() {
-        return (int) windSpeed + "mps";
+        return windSpeed + "mps";
     }
 
     public String getCityName() {

@@ -4,11 +4,11 @@ import net.aksingh.owmjapis.model.param.WeatherData;
 
 public class DailyWeatherConditions extends WeatherBase {
 
-    private double dayTemperature;
+    private final int dayTemperature;
 
-    private double nightTemperature;
+    private final int nightTemperature;
 
-    public DailyWeatherConditions(WeatherData dayWeather, double dayTemperature, double nightTemperature) {
+    public DailyWeatherConditions(WeatherData dayWeather, int dayTemperature, int nightTemperature) {
         super(
                 dayWeather.getDateTime(),
                 dayWeather.getMainData().getPressure(),
@@ -20,6 +20,6 @@ public class DailyWeatherConditions extends WeatherBase {
     }
 
     public String getTemperature() {
-        return (int) dayTemperature + "\u00b0" + "/" + (int) nightTemperature + "\u00b0";
+        return dayTemperature + "\u00b0" + "/" + nightTemperature + "\u00b0";
     }
 }

@@ -9,11 +9,15 @@ import net.aksingh.owmjapis.model.CurrentWeather;
 import net.aksingh.owmjapis.model.HourlyWeatherForecast;
 import net.aksingh.owmjapis.model.param.WeatherData;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 public class WeatherForecastFetcher {
 
-    private String cityName;
+    private static final int WEATHER_FORECAST_DAYS_COUNT = 4;
 
     private final OwmWeatherMapApi weatherApi;
 
@@ -22,11 +26,10 @@ public class WeatherForecastFetcher {
     }
 
     public WeatherForecast fetchWeatherForecast(String cityName) throws APIException {
-        this.cityName = cityName;
-        return new WeatherForecast(fetchCurrentWeatherForecast(), fetchDailyWeatherForecast());
+        return new WeatherForecast(fetchCurrentWeatherForecast(cityName), fetchDailyWeatherForecast(cityName));
     }
 
-    private CurrentWeatherConditions fetchCurrentWeatherForecast() throws APIException {
+    private CurrentWeatherConditions fetchCurrentWeatherForecast(String cityName) throws APIException {
         CurrentWeather currentWeather = weatherApi.getCurrentWeather(cityName);
         CurrentWeatherConditions currentWeatherConditions = null;
 
@@ -37,7 +40,7 @@ public class WeatherForecastFetcher {
         return currentWeatherConditions;
     }
 
-    private List<DailyWeatherConditions> fetchDailyWeatherForecast() throws APIException {
+    private List<DailyWeatherConditions> fetchDailyWeatherForecast(String cityName) throws APIException {
         HourlyWeatherForecast hourlyWeatherForecast = weatherApi.getHourlyWeather(cityName);
         List<DailyWeatherConditions> dailyWeatherForecast = new ArrayList<>();
 
@@ -52,20 +55,20 @@ public class WeatherForecastFetcher {
                 if (getDayOfWeek(new Date()) != getDayOfWeek(date)) {
                     int hour = getHour(date);
 
-                    if (hour > 12 && hour <= 15) {
+                    if (isDayTemperature(hour)) {
                         dayTemperature = weatherData.getMainData().getTemp();
                         dayWeather = weatherData;
                     }
 
-                    if (hour > 21 && dayTemperature != 0) {
+                    if (isNightTemperature(hour) && dayTemperature != 0) {
                         nightTemperature = weatherData.getMainData().getTemp();
                         DailyWeatherConditions dailyWeatherConditions = new DailyWeatherConditions(dayWeather,
-                                dayTemperature, nightTemperature);
+                                (int) Math.round(dayTemperature), (int) Math.round(nightTemperature));
                         dailyWeatherForecast.add(dailyWeatherConditions);
                         dayTemperature = 0;
                     }
 
-                    if (dailyWeatherForecast.size() == 4) {
+                    if (dailyWeatherForecast.size() == WEATHER_FORECAST_DAYS_COUNT) {
                         break;
                     }
                 }
@@ -75,15 +78,21 @@ public class WeatherForecastFetcher {
         return dailyWeatherForecast;
     }
 
-    private int getDayOfWeek(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar.get(Calendar.DAY_OF_WEEK);
+    private boolean isNightTemperature(int hour) {
+        return hour > 21;
+    }
+
+    private boolean isDayTemperature(int hour) {
+        return hour > 12 && hour <= 15;
+    }
+
+    private DayOfWeek getDayOfWeek(Date date) {
+        LocalDate localDate = LocalDate.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        return localDate.getDayOfWeek();
     }
 
     private int getHour(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar.get(Calendar.HOUR_OF_DAY);
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        return localDateTime.getHour();
     }
 }

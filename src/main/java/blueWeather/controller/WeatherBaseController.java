@@ -1,11 +1,14 @@
 package blueWeather.controller;
 
+import blueWeather.Messages;
 import blueWeather.model.CurrentWeatherConditions;
 import blueWeather.model.DailyWeatherConditions;
 import blueWeather.model.Location;
 import blueWeather.model.WeatherForecast;
 import blueWeather.service.LocationHandler;
 import blueWeather.service.WeatherForecastFetcher;
+import blueWeather.service.api.IpApi;
+import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -74,8 +77,10 @@ public class WeatherBaseController implements Initializable {
     private TextField locationInput;
 
     public WeatherBaseController() {
+        Gson gson = new Gson();
+        IpApi ipApi = new IpApi(gson);
+        locationHandler = new LocationHandler(gson, ipApi);
         weatherForecastFetcher = new WeatherForecastFetcher();
-        locationHandler = new LocationHandler();
     }
 
     @Override
@@ -118,10 +123,12 @@ public class WeatherBaseController implements Initializable {
             } catch (APIException e) {
                 clearAllViews();
 
-                if (e.getCode() == 404 || e.getCode() == 400) {
-                    generalError.setText("City not found.");
+                if (e.getCode() == 404) {
+                    generalError.setText(Messages.CITY_NOT_FOUND);
+                } else if (e.getCode() == 400) {
+                    generalError.setText(Messages.BAD_API_REQUEST);
                 } else {
-                    generalError.setText("Sorry, something went wrong: API error.");
+                    generalError.setText(Messages.API_ERROR);
                 }
 
                 e.printStackTrace();
@@ -134,7 +141,7 @@ public class WeatherBaseController implements Initializable {
             setUpExtendedForecastView();
         } else {
             extendedForecast.setVisible(false);
-            extendedForecastError.setText("Data could not be fully downloaded.");
+            extendedForecastError.setText(Messages.DATA_NOT_FULLY_DOWNLOADED);
         }
     }
 
@@ -143,7 +150,7 @@ public class WeatherBaseController implements Initializable {
             setUpCurrentWeatherView();
         } else {
             setChildrenVisibility(currentLocation.getParent().getChildrenUnmodifiable(), false);
-            currentWeatherError.setText("Data could not be fully downloaded.");
+            currentWeatherError.setText(Messages.DATA_NOT_FULLY_DOWNLOADED);
         }
     }
 

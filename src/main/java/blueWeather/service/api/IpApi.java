@@ -13,8 +13,17 @@ public class IpApi {
 
     private final String BASE_API_URL = "http://ip-api.com/json";
 
+    private final Gson gson;
+
+    private final HttpClient client;
+
+    public IpApi(Gson gson) {
+        this.gson = gson;
+        client = HttpClient.newHttpClient();
+    }
+
     public Location getLocationByIP() throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
+
         HttpRequest request = HttpRequest.newBuilder(
                 URI.create(BASE_API_URL))
                 .header("accept", "application/json")
@@ -22,7 +31,6 @@ public class IpApi {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        Gson gson = new Gson();
         return gson.fromJson(response.body(), Location.class);
     }
 }

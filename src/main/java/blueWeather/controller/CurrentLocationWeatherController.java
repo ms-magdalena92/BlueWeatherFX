@@ -1,5 +1,6 @@
 package blueWeather.controller;
 
+import blueWeather.Messages;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class CurrentLocationWeatherController extends WeatherBaseController {
             this.location = locationHandler.getCurrentLocationByIp();
         } catch (IOException | InterruptedException e) {
             clearAllViews();
-            generalError.setText("Sorry, your location could not be determined.");
+            generalError.setText(Messages.LOCATION_COULD_NOT_BE_DETERMINED);
         }
     }
 }
