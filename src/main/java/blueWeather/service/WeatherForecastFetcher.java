@@ -12,6 +12,7 @@ import net.aksingh.owmjapis.model.param.WeatherData;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 public class WeatherForecastFetcher {
@@ -86,10 +87,12 @@ public class WeatherForecastFetcher {
     }
 
     private DayOfWeek getDayOfWeek(Date date) {
-        return LocalDate.from(date.toInstant()).getDayOfWeek();
+        LocalDate localDate = LocalDate.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        return localDate.getDayOfWeek();
     }
 
     private int getHour(Date date) {
-        return LocalDateTime.from(date.toInstant()).getHour();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        return localDateTime.getHour();
     }
 }
