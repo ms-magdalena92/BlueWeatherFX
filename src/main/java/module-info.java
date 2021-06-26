@@ -9,5 +9,6 @@ module blueWeather {
 
     opens blueWeather to javafx.fxml;
     exports blueWeather;
+    opens blueWeather.model to com.google.gson;
     opens blueWeather.controller to javafx.fxml;
 }
