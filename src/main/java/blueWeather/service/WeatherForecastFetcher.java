@@ -21,8 +21,8 @@ public class WeatherForecastFetcher {
 
     private final OwmWeatherMapApi weatherApi;
 
-    public WeatherForecastFetcher() {
-        weatherApi = new OwmWeatherMapApi();
+    public WeatherForecastFetcher(OwmWeatherMapApi owmWeatherMapApi) {
+        weatherApi = owmWeatherMapApi;
     }
 
     public WeatherForecast fetchWeatherForecast(String cityName) throws APIException {
@@ -79,7 +79,7 @@ public class WeatherForecastFetcher {
     }
 
     private boolean isNightTemperature(int hour) {
-        return hour > 21;
+        return hour > 21 || hour == 0;
     }
 
     private boolean isDayTemperature(int hour) {

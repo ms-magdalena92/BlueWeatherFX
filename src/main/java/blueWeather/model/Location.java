@@ -27,4 +27,12 @@ public class Location {
     public void setCityAndCountryCode(String cityAndCountryCode) {
         this.cityAndCountryCode = cityAndCountryCode;
     }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 }

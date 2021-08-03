@@ -8,6 +8,7 @@ import blueWeather.model.WeatherForecast;
 import blueWeather.service.LocationHandler;
 import blueWeather.service.WeatherForecastFetcher;
 import blueWeather.service.api.IpApi;
+import blueWeather.service.api.OwmWeatherMapApi;
 import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,7 +81,7 @@ public class WeatherBaseController implements Initializable {
         Gson gson = new Gson();
         IpApi ipApi = new IpApi(gson);
         locationHandler = new LocationHandler(gson, ipApi);
-        weatherForecastFetcher = new WeatherForecastFetcher();
+        weatherForecastFetcher = new WeatherForecastFetcher(new OwmWeatherMapApi());
     }
 
     @Override
