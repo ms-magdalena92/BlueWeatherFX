@@ -21,8 +21,8 @@ public class WeatherForecastFetcher {
 
     private final OwmWeatherMapApi weatherApi;
 
-    public WeatherForecastFetcher() {
-        weatherApi = new OwmWeatherMapApi();
+    public WeatherForecastFetcher(OwmWeatherMapApi owmWeatherMapApi) {
+        weatherApi = owmWeatherMapApi;
     }
 
     public WeatherForecast fetchWeatherForecast(String cityName) throws APIException {
