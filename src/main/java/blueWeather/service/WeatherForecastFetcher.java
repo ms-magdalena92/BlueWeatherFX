@@ -79,7 +79,7 @@ public class WeatherForecastFetcher {
     }
 
     private boolean isNightTemperature(int hour) {
-        return hour > 21;
+        return hour > 21 || hour == 0;
     }
 
     private boolean isDayTemperature(int hour) {
