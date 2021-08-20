@@ -12,6 +12,15 @@ public class Location {
 
     private String cityAndCountryCode = null;
 
+    public Location() {
+    }
+
+    public Location(String countryCode, String city, String cityAndCountryCode) {
+        this.countryCode = countryCode;
+        this.city = city;
+        this.cityAndCountryCode = cityAndCountryCode;
+    }
+
     public String getCountryCode() {
         return countryCode;
     }
@@ -26,13 +35,5 @@ public class Location {
 
     public void setCityAndCountryCode(String cityAndCountryCode) {
         this.cityAndCountryCode = cityAndCountryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 }
