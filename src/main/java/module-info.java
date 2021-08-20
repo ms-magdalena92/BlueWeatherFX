@@ -11,4 +11,6 @@ module blueWeather {
     exports blueWeather;
     opens blueWeather.model to com.google.gson;
     opens blueWeather.controller to javafx.fxml;
+    exports blueWeather.helper;
+    opens blueWeather.helper to javafx.fxml;
 }

@@ -1,6 +1,7 @@
 package blueWeather.controller;
 
 import blueWeather.Messages;
+import blueWeather.helper.WeatherFetchingErrorHandler;
 import blueWeather.model.CurrentWeatherConditions;
 import blueWeather.model.DailyWeatherConditions;
 import blueWeather.model.Location;
@@ -124,15 +125,8 @@ public class WeatherBaseController implements Initializable {
             } catch (APIException e) {
                 clearAllViews();
 
-                if (e.getCode() == 404) {
-                    generalError.setText(Messages.CITY_NOT_FOUND);
-                } else if (e.getCode() == 400) {
-                    generalError.setText(Messages.BAD_API_REQUEST);
-                } else {
-                    generalError.setText(Messages.API_ERROR);
-                }
-
-                e.printStackTrace();
+                String errorMessage = WeatherFetchingErrorHandler.handle(e.getCode());
+                generalError.setText(errorMessage);
             }
         }
     }
