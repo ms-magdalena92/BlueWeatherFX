@@ -43,7 +43,7 @@ public class WeatherForecastFetcherTest {
         //then
         assertThat(dailyWeatherConditions, hasSize(WeatherForecastFetcher.WEATHER_FORECAST_DAYS_COUNT));
         assertThat(currentWeatherConditions.getCityName(), equalTo(cityName));
-        assertThat(currentWeatherConditions.getHumidity(), equalTo((int) Math.round(OwmApiStub.HUMIDITY) + "%"));
+        assertThat(currentWeatherConditions.getHumidity(), equalTo(OwmApiStub.HUMIDITY + "%"));
         assertThat(dailyWeatherConditions.get(0).getPressure(), equalTo(OwmApiStub.PRESSURE + "hPa"));
     }
 

@@ -11,9 +11,9 @@ import java.util.List;
 
 public class OwmApiStub {
 
-    public static final Double PRESSURE = 1015.0;
+    public static final String PRESSURE = "1015.0";
 
-    public static final Double HUMIDITY = 80.0;
+    public static final String HUMIDITY = "80.0";
 
     public static final Double TEMPERATURE = 19.89;
 
@@ -45,7 +45,8 @@ public class OwmApiStub {
     }
 
     private static WeatherData getWeatherData(int timestamp) {
-        return new WeatherData(timestamp, getMainData(), null, PRESSURE, HUMIDITY, List.of(getWeather()), null,
+        return new WeatherData(timestamp, getMainData(), null, Double.parseDouble(PRESSURE),
+                Double.parseDouble(HUMIDITY), List.of(getWeather()), null,
                 null, null, null);
     }
 
@@ -54,8 +55,8 @@ public class OwmApiStub {
     }
 
     private static Main getMainData() {
-        return new Main(TEMPERATURE, null, null, PRESSURE, null,
-                null, HUMIDITY, null);
+        return new Main(TEMPERATURE, null, null, Double.parseDouble(PRESSURE), null,
+                null, Double.parseDouble(HUMIDITY), null);
     }
 
     private static List<WeatherData> getWeatherDataList() {
