@@ -49,8 +49,8 @@ public class LocationHandlerTest {
     @Test
     public void getCityListShouldReturnNotEmptyMap() {
         //given
-        Location location1 = new Location("City1, Code1", "City1", "Code1");
-        Location location2 = new Location("City1, Code2", "City2", "Code2");
+        Location location1 = new Location("Code1", "City1", "City1, Code1");
+        Location location2 = new Location("Code2", "City2", "City2, Code2");
 
         given(gson.fromJson(any(InputStreamReader.class), any(Type.class))).willReturn(List.of(location1, location2));
 

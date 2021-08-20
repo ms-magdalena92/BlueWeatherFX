@@ -13,7 +13,7 @@ public class OwmApiStub {
 
     public static final String PRESSURE = "1015.0";
 
-    public static final String HUMIDITY = "80.0";
+    public static final String HUMIDITY = "80";
 
     public static final Double TEMPERATURE = 19.89;
 
