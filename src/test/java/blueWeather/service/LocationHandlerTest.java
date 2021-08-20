@@ -67,7 +67,6 @@ public class LocationHandlerTest {
         //then
         assertThat(cityList.size(), is(2));
         assertThat(cityList, IsMapContaining.hasEntry(location1.getCity(), location1.getCityAndCountryCode()));
-        assertThat(cityList, IsMapContaining.hasKey(location2.getCity()));
-        assertThat(cityList, IsMapContaining.hasValue(location2.getCityAndCountryCode()));
+        assertThat(cityList, IsMapContaining.hasEntry(location2.getCity(), location2.getCityAndCountryCode()));
     }
 }
