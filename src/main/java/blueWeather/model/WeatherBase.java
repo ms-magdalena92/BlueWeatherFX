@@ -6,6 +6,8 @@ import java.util.Locale;
 
 public class WeatherBase {
 
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("E, MMM dd", new Locale("en", "EN"));
+
     protected Date date;
 
     private final double pressure;
@@ -22,8 +24,7 @@ public class WeatherBase {
     }
 
     public String getDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E, MMM dd", new Locale("en", "EN"));
-        return dateFormat.format(date);
+        return DATE_FORMAT.format(date);
     }
 
     public String getPressure() {
