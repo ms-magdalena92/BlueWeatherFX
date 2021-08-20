@@ -11,7 +11,7 @@ import java.net.http.HttpResponse;
 
 public class IpApi {
 
-    private final String BASE_API_URL = "http://ip-api.com/json";
+    private static final String BASE_API_URL = "http://ip-api.com/json";
 
     private final Gson gson;
 
