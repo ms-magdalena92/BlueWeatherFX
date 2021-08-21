@@ -17,7 +17,7 @@ import java.util.*;
 
 public class WeatherForecastFetcher {
 
-    private static final int WEATHER_FORECAST_DAYS_COUNT = 4;
+    public static final int WEATHER_FORECAST_DAYS_COUNT = 4;
 
     private final OwmWeatherMapApi weatherApi;
 

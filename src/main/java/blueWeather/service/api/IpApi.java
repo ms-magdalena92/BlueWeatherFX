@@ -11,15 +11,15 @@ import java.net.http.HttpResponse;
 
 public class IpApi {
 
-    private final String BASE_API_URL = "http://ip-api.com/json";
+    private static final String BASE_API_URL = "http://ip-api.com/json";
 
     private final Gson gson;
 
     private final HttpClient client;
 
-    public IpApi(Gson gson) {
+    public IpApi(Gson gson, HttpClient client) {
         this.gson = gson;
-        client = HttpClient.newHttpClient();
+        this.client = client;
     }
 
     public Location getLocationByIP() throws IOException, InterruptedException {

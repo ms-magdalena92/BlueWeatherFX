@@ -49,15 +49,8 @@ public class LocationHandlerTest {
     @Test
     public void getCityListShouldReturnNotEmptyMap() {
         //given
-        Location location1 = new Location();
-        location1.setCity("City1");
-        location1.setCityAndCountryCode("City1, Code1");
-        location1.setCountryCode("Code1");
-
-        Location location2 = new Location();
-        location2.setCity("City2");
-        location2.setCityAndCountryCode("City2, Code2");
-        location2.setCountryCode("Code2");
+        Location location1 = new Location("Code1", "City1", "City1, Code1");
+        Location location2 = new Location("Code2", "City2", "City2, Code2");
 
         given(gson.fromJson(any(InputStreamReader.class), any(Type.class))).willReturn(List.of(location1, location2));
 
@@ -67,7 +60,6 @@ public class LocationHandlerTest {
         //then
         assertThat(cityList.size(), is(2));
         assertThat(cityList, IsMapContaining.hasEntry(location1.getCity(), location1.getCityAndCountryCode()));
-        assertThat(cityList, IsMapContaining.hasKey(location2.getCity()));
-        assertThat(cityList, IsMapContaining.hasValue(location2.getCityAndCountryCode()));
+        assertThat(cityList, IsMapContaining.hasEntry(location2.getCity(), location2.getCityAndCountryCode()));
     }
 }

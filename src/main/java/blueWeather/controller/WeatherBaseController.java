@@ -1,6 +1,7 @@
 package blueWeather.controller;
 
 import blueWeather.Messages;
+import blueWeather.helper.WeatherFetchingErrorHandler;
 import blueWeather.model.CurrentWeatherConditions;
 import blueWeather.model.DailyWeatherConditions;
 import blueWeather.model.Location;
@@ -26,6 +27,7 @@ import net.aksingh.owmjapis.api.APIException;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
+import java.net.http.HttpClient;
 import java.util.ResourceBundle;
 
 public class WeatherBaseController implements Initializable {
@@ -79,7 +81,7 @@ public class WeatherBaseController implements Initializable {
 
     public WeatherBaseController() {
         Gson gson = new Gson();
-        IpApi ipApi = new IpApi(gson);
+        IpApi ipApi = new IpApi(gson, HttpClient.newHttpClient());
         locationHandler = new LocationHandler(gson, ipApi);
         weatherForecastFetcher = new WeatherForecastFetcher(new OwmWeatherMapApi());
     }
@@ -124,15 +126,8 @@ public class WeatherBaseController implements Initializable {
             } catch (APIException e) {
                 clearAllViews();
 
-                if (e.getCode() == 404) {
-                    generalError.setText(Messages.CITY_NOT_FOUND);
-                } else if (e.getCode() == 400) {
-                    generalError.setText(Messages.BAD_API_REQUEST);
-                } else {
-                    generalError.setText(Messages.API_ERROR);
-                }
-
-                e.printStackTrace();
+                String errorMessage = WeatherFetchingErrorHandler.handle(e.getCode());
+                generalError.setText(errorMessage);
             }
         }
     }

@@ -41,13 +41,10 @@ public class WeatherForecastFetcherTest {
         List<DailyWeatherConditions> dailyWeatherConditions = weatherForecast.getDailyWeatherConditions();
 
         //then
-        assertThat(weatherForecast, notNullValue());
-        assertThat(currentWeatherConditions, notNullValue());
-        assertThat(dailyWeatherConditions, hasSize(4));
-
+        assertThat(dailyWeatherConditions, hasSize(WeatherForecastFetcher.WEATHER_FORECAST_DAYS_COUNT));
         assertThat(currentWeatherConditions.getCityName(), equalTo(cityName));
-        assertThat(currentWeatherConditions.getHumidity(), equalTo((int) Math.round(OwmApiStub.humidity) + "%"));
-        assertThat(dailyWeatherConditions.get(0).getPressure(), equalTo(OwmApiStub.pressure + "hPa"));
+        assertThat(currentWeatherConditions.getHumidity(), equalTo(OwmApiStub.HUMIDITY + "%"));
+        assertThat(dailyWeatherConditions.get(0).getPressure(), equalTo(OwmApiStub.PRESSURE + "hPa"));
     }
 
     @Test
@@ -64,7 +61,6 @@ public class WeatherForecastFetcherTest {
         WeatherForecast weatherForecast = weatherForecastFetcher.fetchWeatherForecast(cityName);
 
         //then
-        assertThat(weatherForecast, notNullValue());
         assertThat(weatherForecast.getCurrentWeatherConditions(), nullValue());
         assertThat(weatherForecast.getDailyWeatherConditions(), hasSize(0));
     }
