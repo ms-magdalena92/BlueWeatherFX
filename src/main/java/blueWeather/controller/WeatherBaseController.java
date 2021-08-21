@@ -27,6 +27,7 @@ import net.aksingh.owmjapis.api.APIException;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
+import java.net.http.HttpClient;
 import java.util.ResourceBundle;
 
 public class WeatherBaseController implements Initializable {
@@ -80,7 +81,7 @@ public class WeatherBaseController implements Initializable {
 
     public WeatherBaseController() {
         Gson gson = new Gson();
-        IpApi ipApi = new IpApi(gson);
+        IpApi ipApi = new IpApi(gson, HttpClient.newHttpClient());
         locationHandler = new LocationHandler(gson, ipApi);
         weatherForecastFetcher = new WeatherForecastFetcher(new OwmWeatherMapApi());
     }

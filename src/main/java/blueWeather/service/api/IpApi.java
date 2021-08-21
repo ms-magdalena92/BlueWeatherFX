@@ -17,9 +17,9 @@ public class IpApi {
 
     private final HttpClient client;
 
-    public IpApi(Gson gson) {
+    public IpApi(Gson gson, HttpClient client) {
         this.gson = gson;
-        client = HttpClient.newHttpClient();
+        this.client = client;
     }
 
     public Location getLocationByIP() throws IOException, InterruptedException {
